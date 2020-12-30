@@ -1,24 +1,39 @@
 class PigLatinizer
 
-    attr_accessor :words
+    attr_accessor :input
 
-    def initialize(words)
-      @text = words.downcase
+    def initialize(input)
+      @input = input.downcase
     end 
 
-    def is_consonant?
-      if @text.scan(/[bcdfghjklmnpqrstvwxyz]/).count > 0
+    def begins_consonant
+      if @input.scan(/[bcdfghjklmnpqrstvwxyz]/).count > 0
         true
       else 
         false
     end 
+
+    def piglatinize_word
+        @letters = @input.split(//)
+        @first_letter = @letters.first
+        @first_letter.begins consonant ? :
+    end
+
+    def piglatinize_sentence
+        if input[" "]
+
+        else 
+    
+    end 
+
+
 
     def piglatinize
 
         @letters = @text.split('')
         @array = []
       
-        if @letters.first.is_consonant?
+        if @letters.first.is_consonant
             split_array = @text.split(/([aeiou].*)/)
             first_half = split_array[1]
             second_half = split_array[2]
