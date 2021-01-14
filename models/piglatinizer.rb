@@ -1,104 +1,37 @@
 class PigLatinizer
 
-  def pig_latinize(input)
-    @input = input.downcase
-    
-
+  def piglatinize(input)
+    input.split(" ").length == 1 ? piglatinize_term(input) : piglatinize_sentence(input)
   end
 
-  def is_word
-    @input.split(" ").length == 1 ? true : false
-  end 
-  
+  private
 
-  def is_sentence
-      @input.split(" ").length > 1 ? true : false
+  def consonant?(letters)
+    letters.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/)
   end
 
-  def begins_consonant
-    letters = @input.split(//)
-    first_letter = letters.first
-    num_cons = first_letter.scan(/[bcdfghjklmnpqrstvwxyz]/).count 
-    num_cons > 0 ? true : false  
-  end 
+  def piglatinize_term(term)
+ 
+    if !consonant?(term[0])
+      term = term + "w"
+   
+    elsif consonant?(term[0]) && consonant?(term[1]) && consonant?(term[2])
+      term = term.slice(3..-1) + term.slice(0,3)
 
-  
-    
+    elsif consonant?(term[0]) && consonant?(term[1])
+      term = term.slice(2..-1) + term.slice(0,2)
 
+    else
+      term = term.slice(1..-1) + term.slice(0)
+    end
+    term << "ay"
+  end
 
-
-end 
-
-
-# Extra code:
-# def begins_consonant
-#     if letters[0].scan(/[bcdfghjklmnpqrstvwxyz]/).count > 0
-#       puts "Yes"
-#     else 
-#       puts "No"
-#     end 
-#   end 
-
-
-# input = "Words Are Here"
-
-
-# letters = input.split(//)
-# puts "#{letters}"
-# puts "#{letters.first}"
-# #self.begins_cosonant ? "Yes" : "No"
-# #if letters.begins_consonant
-# #puts "Yes"
-# #else 
-# #puts "No"
-# #end 
-
-# attr_accessor :input
-
-# def initialize(input)
-#   @input = input.downcase
-# end 
-
-# def begins_consonant
-#   if @input.scan(/[bcdfghjklmnpqrstvwxyz]/).count > 0
-#     true
-#   else 
-#     false
-#   end 
-# end 
-
-# def piglatinize_word
-#     @letters = @input.split(//)
-#     @first_letter = @letters.first
-#     @first_letter.begins consonant ? :
-# end
-
-# def piglatinize_sentence
-#     if input[" "]
-
-#     else 
-
-# end 
+  def piglatinize_sentence(sentence)
+    sentence.split.collect { |term| piglatinize_term(term) }.join(" ")
+  end
 
 
 
-# def piglatinize
 
-#     @letters = @text.split('')
-#     @array = []
-  
-#     if @letters.first.is_consonant
-#         split_array = @text.split(/([aeiou].*)/)
-#         first_half = split_array[1]
-#         second_half = split_array[2]
-
-#         @append = @first_half + @second_half
-#         @new_word = @append + "ay"
-#         @array << @new_word
-#     else 
-#         @new_word = @text + "way"
-#         @array << @new_word
-#     end 
-# end 
-# @array
-# end 
+end
